@@ -1,0 +1,69 @@
+Create the Table stud_result.
+
+    CREATE TABLE stud_result(
+    Rno NUMBER (5),
+    Sname VARCHAR2 (20),
+    Bdate DATE
+    );
+
+1. Insert at least 10 records and rno starts with 101 .
+
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (101,'Bhavik','12-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (102,'Anil','13-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (103,'Kalpesh','14-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (104,'Vijay','15-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (105,'Dhruv','16-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (106,'Yash','17-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (107,'Jenil','18-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (108,'Parth','19-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (109,'Darshan','20-may-2025');
+    INSERT INTO stud_result(Rno,Sname,Bdate) VALUES (110,'Utsav','21-may-2025');
+
+2. Add 3 columns like: Total, Per, Grade
+
+    ALTER TABLE stud_result ADD (Total number(5), Per number(5,2),Grade varchar2(3));
+
+3. Update fields Total, Per and Grade. 
+
+    UPDATE stud_result SET Total = &Total WHERE Rno = &Rno;
+    UPDATE stud_result SET Per = Total / 4;
+    UPDATE stud_result SET Grade = 'A+' WHERE Per > 90;
+    UPDATE stud_result SET Grade = 'A' WHERE Per BETWEEN 80 AND 90;
+    UPDATE stud_result SET Grade = 'B+' WHERE Per BETWEEN 70 AND 80;
+    UPDATE stud_result SET Grade = 'B' WHERE Per BETWEEN 60 AND 70;
+    UPDATE stud_result SET Grade = 'C' WHERE Per BETWEEN 50 AND 60;
+    UPDATE stud_result SET Grade = 'D' WHERE Per BETWEEN 40 AND 50;
+    UPDATE stud_result SET Grade = 'E' WHERE Per BETWEEN 33 AND 40;
+    UPDATE stud_result SET Grade = 'F' WHERE Per < 33;
+
+4. Display all records descending order of percentage. 
+
+    SELECT *FROM stud_result ORDEER BY Per DESC; 
+
+5. Display first 3 character of name filed. 
+
+    SELECT SUBSTR(Sname,1,3) FROM  stud_result;
+
+6. Display name and Bdate of all students. 
+
+    SELECT Sname , Bdate FROM stud_result;
+
+7. Display all records whose total is between 150 to 190 and per less than 60. 
+
+    SELECT *FROM stud_result WHERE Total BETWEEN 150 AND 190 AND per < 60;
+
+8. Display rno, sname and total who have grade A+ or A. 
+
+    SELECT Rno , Sname , Total FROM stud_result WHERE Grade='A+' OR Grade='A';
+
+9. Delete those records whose grade is A or B 
+
+    DELETE FROM stud_result WHERE Grade='A' OR Grade='B';
+
+10. Delete those records whose city starts with ‘s’ 
+
+    DELETE FROM stud_result WHERE City LIKE 's%';
+
+11. Delete all records whose per < 40 . 
+
+    DELETE FROM stud_result WHERE Per < 40;

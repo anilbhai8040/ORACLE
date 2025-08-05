@@ -1,0 +1,95 @@
+Create the Follwing Tables
+
+    // First create the PRIMARY KEY table
+
+        CREATE TABLE dept(
+        deptNo NUMBER(3) PRIMARY KEY,
+        dname VARCHAR2(15),
+        location VARCHAR2(15)
+        );
+
+    // Second create foreign key table
+
+        CREATE TABLE emp(
+        emp_id NUMBER(3),
+        name VARCHAR2(15),
+        city VARCHAR2(10),
+        job VARCHAR2(10),
+        salary NUMBER(6),
+        joinDate DATE,
+        commision NUMBER(7,2),
+        deptNo NUMBER(3) REFERENCES dept(deptNo)
+        );
+
+    // First insert record in the PRIMARY KEY table
+        INSERT INTO dept (deptNo,dname,location) VALUES(1,'development','delhi');
+        INSERT INTO dept (deptNo,dname,location) VALUES (2,'programmer','pune');
+        INSERT INTO dept (deptNo,dname,location) VALUES (3,'officer','delhi');
+        INSERT INTO dept (deptNo,dname,location) VALUES (4,'manager','channai');
+        INSERT INTO dept (deptNo,dname,location) VALUES (5,'accountant','delhi');
+
+    // Second insert record in the Foreign KEY table
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (101,'anil','delhi','accountant',85000,'30-jun-2025',1);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (120,'vijay','pune','seller',13000,'15-mar-2024',3);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (120,'vijay','pune','seller',13000,'15-mar-2024',3);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (103,'parth','punjab','manager',30000,'1-jan-1991',2);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (103,'parth','punjab','manager',8000,'2-jul-1971',1);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (450,'kalpesh','pune','seller',86000,'1-jan-1985',4);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (304,'yash','gujrat','officer',25000,'20-sep-2005',5);
+
+    // Display the both table information at a time...
+
+        SELECT d.* , e.* FROM dept d,emp e WHERE d.deptNo  = e.deptNo;
+
+1. Display detailed of employee joined in the month of ‘MARCH’.
+
+    SELECT *FROM emp WHERE joinDate LIKE '%MAR%';
+    SELECT * FROM emp WHERE TO_CHAR(join_date, 'MON') = 'MAR';
+
+2. Display details of employee whose city is not ‘DELHI’ or ‘PUNE’.
+
+    SELECT *FROM emp WHERE city NOT IN ('delhi','pune');
+    
+3. Display details of employee joined after ‘1st January 1990’. 
+
+    SELECT *FROM emp WHERE joinDate > '1-jan-1990';
+    SELECT *FROM emp WHERE join_date > TO_DATE('01-JAN-1990', 'DD-MON-YYYY');
+
+4. Display details of employee whose is ‘MANAGER’ or ‘OFFICER’. 
+
+    SELECT e.* FROM emp e,dept d WHERE d.deptNo = e.deptNo AND d.dname IN ('manager','officer');
+
+5. Display details of employee in ascending order of name. 
+
+    SELECT *FROM emp ORDER BY name ASC; // default is ASC
+
+6. Display second highest salary of employee. 
+
+    SELECT MAX(salary) AS second_highest_salary FROM emp WHERE salary < (SELECT MAX(salary) FROM emp);
+
+7. Display details of employee whose joining date is in month of ‘FEB’. 
+
+    SELECT *FROM emp WHERE joinDate NOT LIKE '%FEB%';
+    SELECT *FROM emp WHERE TO_CHAR(join_date, 'MON') = 'FEB';
+
+8. List details of employee not working in ‘ACCOUNT’ department. 
+
+    SELECT e.* FROM emp e,dept d WHERE d.deptNo = e.deptNo AND d.dname NOT 'accountant';
+
+9. Display the list of employee whose post is ‘PROGRAMMER’ or salary >= 15000. 
+
+    SELECT *FROM emp WHERE job = 'programmer' OR salary >= 15000;
+
+10. Count the number of employee in each department.
+
+    SELECT d.dname , COUNT(e.emp_id) AS total_emp FROM emp e,dept d WHERE d.deptNo = e.deptNo;
+    SELECT d.dname , COUNT(e.emp_id) AS total_emp FROM emp e,dept d WHERE d.deptNo = e.deptNo GROUP BY d.dname;
+
+11. Create Synonyms for above table.
+
+    CREATE SYNONYM emp_syn FOR emp;
+    CREATE SYNONYM dept_syn FOR dept;
+
+12. Create unique index on the emp_id.
+
+    CREATE UNIQUE INDEX idx_emp_id ON emp(emp_id);

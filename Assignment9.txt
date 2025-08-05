@@ -1,0 +1,76 @@
+    CREATE TABLE department(
+    dept_id NUMBER(3) PRIMARY KEY,
+    dept_name VARCHAR2(20)
+    );
+
+    CREATE TABLE stud_member(
+    roll_no NUMBER(3),
+    fname VARCHAR2(15),
+    mname VARCHAR2(15),
+    sname VARCHAR2(15),
+    dept_id NUMBER(3) REFERENCES department(dept_id),
+    semester NUMBER(2),
+    contact_no NUMBER(10),
+    gender CHAR(1) CHECK (gender IN('M','F'))
+    );
+
+
+    INSERT INTO department (dept_id,dept_name) VALUES (1,'Information Technology');
+    INSERT INTO department (dept_id,dept_name) VALUES (2,'Electronical');
+    INSERT INTO department (dept_id,dept_name) VALUES (3,'Civil');
+    INSERT INTO department (dept_id,dept_name) VALUES (4,'Mechanical');
+    INSERT INTO department (dept_id,dept_name) VALUES (5,'Chemical');
+
+
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (1,'Ankur','Samir','Kahar',1,1,272121,'M');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (2,'Dhaval','Dhiren','Joshi',1,1,232121,'M');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (3,'Ankita','Biran','Shah',1,1,112121,'F');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (10,'Komal','Maheshkaumar','Pandya',2,3,123123,'M');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (13,'Amit','Jitenkumar','Mehta',3,3,453667,'M');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (23,'Jinal','Ashish','Gandhi',2,1,323232,'M');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (22,'Ganesh','Asha','Patel',2,3,124244,'M');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (4,'Shweta','Mihir','Patel',3,1,646342,'F');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (7,'Pooja','Mayank','Desai',3,3,328656,'F');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (8,'Komal','Krishnaraj','Bhatia',2,3,257422,'F');
+    INSERT INTO stud_member (roll_no,fname,mname,sname,dept_id,semester,contact_no,gender) VALUES (43,'Kiran','Viraj','Shah',1,1,754124,'F');
+
+1. Display the names and contact numbers of all student members.
+
+    SELECT fname,mname,sname,contact_no FROM stud_member;
+
+2. Give the names and roll numbers of all students of Information Technology who are members.
+
+    SELECT s.roll_no,s.fname FROM stud_member s,department d WHERE s.dept_id = d.dept_id and d.dept_name = 'Information Technology';
+
+3. Display names of Departnents whose students are members.
+
+    SELECT distinct(d.dept_name) FROM stud_member s,department d WHERE s.dept_id = d.dept_id;
+
+4. Display names of Departnents for which no students are members.
+
+    SELECT dept_name FROM department WHERE dept_id NOT IN (SELECT DISTINCT dept_id FROM stud_member);
+
+5. Display names of all Departments.
+
+    SELECT dept_name FROM department;
+
+6. Find the number of students of Electrical Department who are members.
+
+    SELECT COUNT(dept_id) AS Total FROM stud_member WHERE dept_id = 2;
+    SELECT COUNT(s.dept_id) AS Total FROM stud_member s,department d WHERE s.dept_id = d.dept_id AND d.dept_name = 'Electronical';
+
+7. Display information of student members whose name begins with the letter “A”.
+
+    SELECT *FROM stud_member WHERE fname LIKE 'A%';
+
+8. Display all details of Male members only.
+
+    SELECT *FROM stud_member WHERE gender = 'M';
+
+9. Display data of student members who are curently in semester 3.
+
+    SELECT *FROM stud_member WHERE semester = 3;
+
+10. Display data of student female members in alphabetical order.
+
+    SELECT * FROM stud_member WHERE gender = 'F' ORDER BY fname;

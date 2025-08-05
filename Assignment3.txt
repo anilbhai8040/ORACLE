@@ -1,0 +1,81 @@
+Create the Table Stud_Result.
+  
+    CREATE TABLE Student_Result(
+    Stud_rollno	NUMBER(3),
+    Stud_name VARCHAR2(15),
+    City VARCHAR2(20),
+    Oracle	NUMBER(3),
+    SE	NUMBER(3),
+    ASP	NUMBER(3),
+    Network	NUMBER(3)
+    );
+
+1. insert 10 records into the stud_result table. 
+
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (1,'bhavik','botad',65,75,68,48);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (2,'anil','kaniyad',95,85,98,92);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (3,'kalpesh','hamapar',93,95,88,94);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (4,'vijay','botad',35,45,58,28);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (5,'dhruv','botad',75,79,69,88);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (6,'yash','vichhiya',55,75,63,68);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (7,'kaushik','nagalpar',45,65,38,58);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (8,'darshan','botad',75,78,68,58);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (9,'jenil','botad',66,77,68,78);
+    INSERT INTO Student_Result (Stud_rollno,Stud_name,City,Oracle,SE,ASP,Network) values (10,'parth','botad',65,75,78,49);
+
+2. Display all information of Students.
+
+    SELECT *FROM Student_Result;
+
+3. Display stud_result TABLE structure.
+
+    DESC Student_Result;
+
+4. Add two new column names like total number (3) and per number (6, 2).
+
+    ALTER TABLE Student_Result ADD (total number (3),per number (6, 2));
+
+5. Update column total and per.
+
+    UPDATE Student_Result SET total = Oracle+SE+ASP+Network;
+    UPDATE Student_Result SET per = total/4;
+
+6. Display unique student city.
+
+    SELECT DISTINCT City FROM Student_Result;
+
+7. Display all students name in descending order.
+
+    SELECT *FROM Student_Result ORDER BY Stud_name DESC;
+
+8. Display all information of student that lives in ‘Botad’ and ‘Rajkot’.
+
+    SELECT *FROM Student_Result WHERE City = 'botad' OR City = 'rajkot';
+
+9. Display those records whose total is BETWEEN 175 and 230.
+
+    SELECT *FROM Student_Result WHERE total BETWEEN 175 AND 230;
+
+10. Display those records whose 65 marks in SE.
+
+    SELECT *FROM Student_Result WHERE SE = 65;
+
+11. Display all records whose marks in oracle between 50 to 60 and per < 55.
+
+    SELECT *FROM Student_Result WHERE Oracle BETWEEN 50 and 60 AND per < 55;
+
+12. Display all records whose marks >40 in each subjects.
+
+    SELECT *FROM Student_Result WHERE Oracle>40 AND SE>40 AND ASP>40 AND Network>40;
+
+13. Display all information of student that gives distinction.
+
+    SELECT *FROM Student_Result WHERE per > 70;
+
+14. Delete those records whose >55 marks in ASP and <60 marks in Network.
+
+    DELETE FROM Student_Result WHERE ASP > 55 AND Network<60;
+
+15. Rename TABLE name Stud_result to student_result.
+
+    RENAME Student_Result TO stud_Result;

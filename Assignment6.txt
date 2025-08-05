@@ -1,0 +1,64 @@
+Create the following Table.
+
+    CREATE TABLE emp(
+    emp_id NUMBER(6) PRIMARY KEY,
+    branch_id NUMBER(6),
+    fname VARCHAR2(15) NOT NULL,
+    lname VARCHAR2(15) NOT NULL,
+    dept VARCHAR2(15),
+    designation VARCHAR2(15),
+    salary NUMBER(5),
+    commition NUMBER(4)
+    );
+
+1. Inserte 10 recor ds.
+
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (1,12,'amdavadi','bhavik','designing','web des',70000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (2,12,'baraiya','anil','development','app dev',90000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (3,12,'bavaliya','kalpesh','development','app dev',92000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (4,12,'boliya','vijay','helper','employee',40000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (5,12,'degama','dhruv','designing','web des',85000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (6,12,'padani','yash','development','os dev',80000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (7,12,'fatepara','kaushik','designing','game des',55000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (8,12,'parmar','darshan','helper','employee',50000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (9,12,'sakariya','jenil','helper','employee',55000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (10,12,'kalthiya','parth','helper','manager',60000,1000);
+
+    // Show Table data
+        SELECT *FROM emp;
+
+2. Show Table Structure.
+
+    DESC emp;
+
+3. Combine Fname and Iname. And new column's name is "Full Name".
+
+    SELECT CONCAT (fname,lname)AS FullName from emp;
+
+4. Rename the table to Employee Master.
+
+    RENAME emp TO employee_master;
+
+5. Give the details of that employee whose salary is greater than 15000.
+
+    SELECT *FROM employee_master where salary > 15000;
+
+6. List all the records in order by Designation.
+
+    SELECT *FROM employee_master ORDER BY designation;
+
+7. Give the number of employees by group by Branch Id.
+
+    ---
+
+8. Calculate Commission as 5% of the salary.
+
+    UPDATE employee_master SET commition = salary * 5 / 100;
+
+9. Calculate the Final Salary = Commission + Salary.
+
+    SELECT TRUNC(salary + commition) AS Final_salary FROM employee_master;
+
+10. Find out the record whose designation is 'Manager'.
+
+    SELECT *FROM employee_master WHERE designation LIKE 'Manager';

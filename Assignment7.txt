@@ -1,0 +1,63 @@
+	CREATE TABLE student(
+		stud_id NUMBER(3),
+		stud_name VARCHAR2(20) NOT NULL,
+		gender VARCHAR2(2),
+		contact_no NUMBER(10),
+		sub_1 NUMBER(3),
+		sub_2 NUMBER(3),
+		sub_3 NUMBER(3),
+		PRIMARY KEY(stud_id),
+		CHECK (gender = 'M' OR gender = 'F'),
+		CHECK (sub_1 BETWEEN 0 AND 100),
+		CHECK (sub_2 BETWEEN 0 AND 100),
+		CHECK (sub_3 BETWEEN 0 AND 100)
+	);
+
+1. Insert 10 records as per given format.
+
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (1,'KALPESH','M',7096466885,98,95,85);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (2,'DRASTI','F',9945466855,78,65,56);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (3,'ANIL','M',5454564564,100,100,100);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (4,'RENUKA','F',5456564425,45,98,100);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (5,'DISHA','F',9815675135,26,54,47);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (6,'YASH','M',7879231885,45,68,82);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (7,'KINJAL','F',6864545885,45,45,75);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (8,'DARSHAN','M',8866224575,10,10,30)
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (9,'DHRUV','M',6996466885,95,98,75);
+	INSERT INTO student(stud_id,stud_name,gender,contact_no,sub_1,sub_2,sub_3) VALUES (10,'VILASH','F',8596466885,88,45,55);
+
+2. Display Table Structure.
+
+	DESC student;
+
+3. Display Student Whose name starts with Letter “M”.
+	
+	SELECT * FROM student WHERE stud_name LIKE 'M%';
+	
+4. Display Student Whose name starts with Second Letter “A”.
+
+	SELECT * FROM student WHERE stud_name LIKE '_A%';
+	
+5. Display all information of students whose all subject marks are Greater Than 35.
+
+	SELECT * FROM student WHERE sub_1 >35 AND sub_2 > 35 AND sub_3 > 35;
+
+6. Calculate Total, Average, Min and Max Marks.
+
+	SELECT stud_id,stud_name,(sub_1 + sub_2 + sub_3) AS Total,ROUND((sub_1 + sub_2 + sub_3)/3, 2) AS Average,LEAST(sub_1, sub_2, sub_3) AS Min,GREATEST(sub_1, sub_2, sub_3) AS Max FROM student;
+
+7. Drop the Constraint Not Null.
+
+	ALTER TABLE student MODIFY stud_name VARCHAR2(20) NULL;
+
+8. Add new Column “City" with appropriate data type.
+
+	ALTER TABLE student ADD city VARCHAR2(20);
+
+9. Rename the table to Student Master.
+
+	RENAME student TO student_master;
+
+10. Delete Records Whose Student Id is 101.
+
+	DELETE FROM student_master WHERE stud_id = 101;

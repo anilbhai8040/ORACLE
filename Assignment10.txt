@@ -1,0 +1,16 @@
+CREATE TABLE sales(
+orderID number(3),
+orderDate date,
+orderPrice number(8,2),
+orderQuantity number(3),
+customerName varchar2(15)
+);
+
+insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (1,'22-dec-2005',160,2,'Smith');
+insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (2,'10-oct-2005',190,2,'Johnson');
+insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (3,'13-jul-2005',500,5,'Baldwin');
+insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (4,'15-jul-2005',420,2,'Smith');
+insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (5,'22-dec-2005',1000,4,'Wood');
+insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (6,'02-oct-2005',820,4,'Smith');
+insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (7,'03-nov-2005',2000,2,'Baldwin');
+

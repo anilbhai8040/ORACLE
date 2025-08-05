@@ -1,0 +1,75 @@
+1. create the CUSTOMER table as follow: 
+
+    CREATE	TABLE CUSTOMER(
+    Cust_id VARCHAR2(5),
+    Cust_name VARCHAR2(10),
+    Cust_city VARCHAR2(15)
+    );
+
+2.insert 10 record into the customer table. 
+
+    INSERT INTO CUSTOMER VALUES(
+    'C101' 'Ali Akbar'  'Bhavanagar',
+    'C102' 'Mohit Verma' 'Bhavanagar',
+    'C103' 'Reena Sharma' 'Rajkot',
+    'C104' 'Sahil Pathan' 'Amreli',
+    'C105' 'Sagar Mehta' 'Botad',
+    'C106' 'Raj Aryan' 'Rajkot',
+    'C107' 'Arman Sheikh' 'Botad',
+    'C108' 'Neelam Patel' 'Shihor',
+    'C109' 'Kartik Verma' 'Jamnagar',
+    'C110' 'Pravin Joshi' 'Junagadh',
+    'C111' 'Neelam Mehta' 'Botad'
+    );
+ 
+3. Display all information of customers. 
+
+    SELECT  *FROM CUSTOMER;
+
+4. Display name and city of all customers. 
+
+    SELECT Cust_name , Cust_city FROM CUSTOMER;
+
+5. Display structure of customer table. 
+
+    DESC CUSTOMER;
+
+6. Display information of customer ‘c107’. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_id = 'C107';
+
+7. Display all customers from bhavanagar. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_city = 'Bhavanagar';
+
+8. Display customer from ‘Amreli’ and ‘Rajkot’. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_city = 'Amreli' AND Cust_city ='Rajkot';
+
+9. Display all customers except from ‘Botad’. 
+
+    SELECT *FROM CUSTOMER WHERE  NOT Cust_city = 'Botad';
+
+10. Display customer information in descending order. 
+
+    SELECT *FROM CUSTOMER ORDER BY Cust_id DESC;
+
+11. Display all information of customer name of Neelam. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_name LIKE 'Neelam%';
+
+12. Display customer information of Ali Akbar. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_name = 'Ali Akbar';
+
+13. Display customer whose name starts from letter ‘A’. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_name LIKE 'A%';
+
+14. Display customers with ‘Mehta’ surname. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_name LIKE '%Mehta';
+
+15. Display customer having last letter ‘E’ in name. 
+
+    SELECT *FROM CUSTOMER WHERE Cust_name LIKE '%i ';
