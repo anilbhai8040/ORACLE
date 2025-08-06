@@ -14,11 +14,11 @@ Create the following tale
     );
 
     INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (1,'baraiya','anil','30 jun 2006','kaniyad',1236547890,'development',95000);
-    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (2,'bavaliya','kalpesk','29 jun 1985','hamapar',9926547890,'designer',89000);
+    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (2,'bavaliya','kalpesh','29 jun 1985','hamapar',9926547890,'designer',89000);
     INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (3,'degama','dhruv','26 mar 1980','botad',9626547890,'manager',55000);
-    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (4,'baraiya','anil','19 aug 1995','vinchhiya',8936547890,'employee',6000);
-    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (5,'sakariya','jenil','15 jul 1878','botad',7816547890,'selling',35000);
-    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (6,'parmar','darshan','14 sep 2005','botad',6868547890,'selling',45000);
+    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (4,'kalthiya','parth','19 aug 1995','rajkot',8936547890,'employee',6000);
+    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (5,'sakariya','jenil','15 jul 1878','botad',7816547890,'seller',2500);
+    INSERT INTO customer (cust_no,Fname,Lname,birth_date,city,mob_no,dept_name,salary) VALUES (6,'parmar','darshan','14 sep 2005','paliyad',6868547890,'manager',45000);
 
 1. Display the list of customer with department name.  
 
@@ -32,13 +32,14 @@ Create the following tale
 3. Display details of customer whose birth date is in year of ‘1980’.  
 
     SELECT *FROM customer WHERE birth_date BETWEEN '1-JAN-1980' AND '31-dec-1980';
+    SELECT *FROM customer WHERE YEAR(birth_date) = 1980;
     SELECT *FROM customer WHERE TO_CHAR(birth_date, 'YYYY') = '1980';
 
 4. Display details of customer whose mobile no start with ’99..’series.  
 
     SELECT *FROM customer WHERE mob_no LIKE '99%';
 
-5. Display name and depart name of customer whose city starting from ‘M’.  
+5. Display name and department name of customer whose city starting from ‘M’.  
 
     SELECT Fname, Lname ,dept_name FROM customer WHERE city LIKE 'm%';
 
@@ -56,11 +57,11 @@ Create the following tale
 
 9. List name of customer having ‘A’ as 2nd letter in first name.  
 
-    SELECT * FROM customer WHERE Fname LIKE '_A%';
+    SELECT *FROM customer WHERE Fname LIKE '_A%';
 
 10. Write a query to add middle_name column to customer table.  
 
-    ALTER TABLE Customer ADD middle_name VARCHAR2(20);
+    ALTER TABLE customer ADD middle_name VARCHAR2(20);
 
 11. Create Synonyms for above table. 
 

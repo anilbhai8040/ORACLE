@@ -1,7 +1,9 @@
+Create the following Table.
+
 	CREATE TABLE student(
 		stud_id NUMBER(3),
 		stud_name VARCHAR2(20) NOT NULL,
-		gender VARCHAR2(2),
+		gender CHAR(1),
 		contact_no NUMBER(10),
 		sub_1 NUMBER(3),
 		sub_2 NUMBER(3),

@@ -31,20 +31,20 @@ Create the Follwing Tables
     // Second insert record in the Foreign KEY table
         INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (101,'anil','delhi','accountant',85000,'30-jun-2025',1);
         INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (120,'vijay','pune','seller',13000,'15-mar-2024',3);
-        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (120,'vijay','pune','seller',13000,'15-mar-2024',3);
-        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (103,'parth','punjab','manager',30000,'1-jan-1991',2);
-        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (103,'parth','punjab','manager',8000,'2-jul-1971',1);
-        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (450,'kalpesh','pune','seller',86000,'1-jan-1985',4);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (335,'mayur','punjab','manager',30000,'1-jan-1991',2);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (103,'parth','goa','employee',8000,'2-jul-1971',1);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (140,'dev','pune','seller',13000,'15-mar-2024',3);
+        INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (450,'kalpesh','keral','CEO',86000,'1-jan-1985',4);
         INSERT INTO emp (emp_id,name,city,job,salary,joinDate,deptNo) VALUES (304,'yash','gujrat','officer',25000,'20-sep-2005',5);
 
     // Display the both table information at a time...
 
         SELECT d.* , e.* FROM dept d,emp e WHERE d.deptNo  = e.deptNo;
 
-1. Display detailed of employee joined in the month of ‘MARCH’.
+1. Display detailes of employee joined in the month of ‘MARCH’.
 
     SELECT *FROM emp WHERE joinDate LIKE '%MAR%';
-    SELECT * FROM emp WHERE TO_CHAR(join_date, 'MON') = 'MAR';
+    SELECT * FROM emp WHERE TO_CHAR(joinDate, 'MON') = 'MAR';
 
 2. Display details of employee whose city is not ‘DELHI’ or ‘PUNE’.
 
@@ -70,7 +70,7 @@ Create the Follwing Tables
 7. Display details of employee whose joining date is in month of ‘FEB’. 
 
     SELECT *FROM emp WHERE joinDate NOT LIKE '%FEB%';
-    SELECT *FROM emp WHERE TO_CHAR(join_date, 'MON') = 'FEB';
+    SELECT *FROM emp WHERE TO_CHAR(joinDate, 'MON') = 'FEB';
 
 8. List details of employee not working in ‘ACCOUNT’ department. 
 
@@ -82,7 +82,6 @@ Create the Follwing Tables
 
 10. Count the number of employee in each department.
 
-    SELECT d.dname , COUNT(e.emp_id) AS total_emp FROM emp e,dept d WHERE d.deptNo = e.deptNo;
     SELECT d.dname , COUNT(e.emp_id) AS total_emp FROM emp e,dept d WHERE d.deptNo = e.deptNo GROUP BY d.dname;
 
 11. Create Synonyms for above table.

@@ -11,18 +11,18 @@ Create the following Table.
     commition NUMBER(4)
     );
 
-1. Inserte 10 recor ds.
+1. Inserte 10 records.
 
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (1,12,'amdavadi','bhavik','designing','web des',70000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (2,12,'baraiya','anil','development','app dev',90000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (1,18,'amdavadi','bhavik','designing','web des',70000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (2,11,'baraiya','anil','development','app dev',90000,1000);
     INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (3,12,'bavaliya','kalpesh','development','app dev',92000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (4,12,'boliya','vijay','helper','employee',40000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (5,12,'degama','dhruv','designing','web des',85000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (6,12,'padani','yash','development','os dev',80000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (7,12,'fatepara','kaushik','designing','game des',55000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (8,12,'parmar','darshan','helper','employee',50000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (9,12,'sakariya','jenil','helper','employee',55000,1000);
-    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (10,12,'kalthiya','parth','helper','manager',60000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (4,13,'boliya','vijay','helper','employee',40000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (5,13,'degama','dhruv','designing','web des',85000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (6,18,'padani','yash','development','os dev',80000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (7,11,'fatepara','kaushik','designing','game des',55000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (8,13,'parmar','darshan','helper','employee',50000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (9,18,'sakariya','jenil','helper','employee',55000,1000);
+    INSERT INTO emp (emp_id,branch_id,fname,lname,dept,designation,salary,commition) VALUES (10,11,'kalthiya','parth','helper','manager',60000,1000);
 
     // Show Table data
         SELECT *FROM emp;
@@ -31,7 +31,7 @@ Create the following Table.
 
     DESC emp;
 
-3. Combine Fname and Iname. And new column's name is "Full Name".
+3. Combine Fname and Lname. And new column's name is "Full Name".
 
     SELECT CONCAT (fname,lname)AS FullName from emp;
 
@@ -49,7 +49,7 @@ Create the following Table.
 
 7. Give the number of employees by group by Branch Id.
 
-    ---
+    SELECT branch_id, COUNT(emp_id) AS total_employees FROM employee_master GROUP BY branch_id;
 
 8. Calculate Commission as 5% of the salary.
 
@@ -61,4 +61,4 @@ Create the following Table.
 
 10. Find out the record whose designation is 'Manager'.
 
-    SELECT *FROM employee_master WHERE designation LIKE 'Manager';
+    SELECT *FROM employee_master WHERE designation LIKE 'manager';

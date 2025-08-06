@@ -28,13 +28,18 @@ Create the following Table.
 
 3. Insert “Amreli” as a city for rccord 1, 3, 5 and “Vadodara” as a city for record 2, 4, 6, 8. And Surat for all other records.
 
-    UPDATE customer SET cust_city = 'Amreli' WHERE cust_id IN (1,3,5);
-    UPDATE customer SET cust_city = 'Vadodara' WHERE cust_id IN (2,4,6,8);
-    UPDATE customer SET cust_city = 'Surat' WHERE cust_id NOT IN (1,3,5,2,4,6,8);
+   // Switch case
+   UPDATE customer SET cust_city = 
+    CASE
+    WHEN cust_id IN (1, 3, 5) THEN 'Amreli'
+    WHEN cust_id IN (2, 4, 6, 8) THEN 'Vadodara'
+    ELSE 'Surat'
+    END;
+
 
 4. Update city='Mumbai” where city=“Surat”.
 
-    UPDATE customer SET cust_city = 'Mumbai' WHERE city = 'Surat;
+    UPDATE customer SET cust_city = 'Mumbai' WHERE cust_city = 'Surat;
 
 5. Add New Column “Discount' With Appropriatc Data type.
 
@@ -43,9 +48,8 @@ Create the following Table.
 6. Calculate'“Bill Amt". (Product Prise * Ouantity)
 
     UPDATE customer SET bill_amt = product_price * quantity;
-
-
-    ALTER TABLE customer MODIFY bill_amt NUMBER(10,2);
+    
+   // ALTER TABLE customer MODIFY bill_amt NUMBER(10,2);
 
 7. Find Discount 10% if Bill_ Amt amount is greater than 10000.
 
@@ -59,6 +63,6 @@ Create the following Table.
 
     DELETE FROM customer WHERE bill_amt < 1000;
 
-10. Display all bills whose bill amount is bet ween Rs. 2000 to Rs. 5000.
+10. Display all bills whose bill amount is between Rs. 2000 to Rs. 5000.
 
     SELECT *FROM customer WHERE bill_amt BETWEEN 2000 AND 5000;
