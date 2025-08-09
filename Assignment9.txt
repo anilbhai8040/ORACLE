@@ -42,7 +42,7 @@
 
 2. Give the names and roll numbers of all students of Information Technology who are members.
 
-    SELECT s.roll_no,s.fname FROM stud_member s,department d WHERE s.dept_id = d.dept_id and d.dept_name = 'Information Technology';
+    SELECT s.roll_no,s.fname,mname,sname FROM stud_member s,department d WHERE s.dept_id = d.dept_id and d.dept_name = 'Information Technology';
 
 3. Display names of Departnents whose students are members.
 
@@ -67,7 +67,7 @@
 
 8. Display all details of Male members only.
 
-    SELECT *FROM stud_member WHERE gender = 'M';
+    SELECT s.*, d.dept_name FROM stud_member s, department d WHERE s.dept_id = d.dept_id AND s.gender = 'M';
 
 9. Display data of student members who are curently in semester 3.
 
