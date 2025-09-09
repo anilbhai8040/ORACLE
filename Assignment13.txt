@@ -1,0 +1,94 @@
+-- Create the Department table.
+
+    CREATE TABLE Department (
+        Dept_id NUMBER(3) PRIMARY KEY,
+        Dept_name VARCHAR2(25) NOT NULL,
+        Dept_location VARCHAR2(25) NOT NULL
+    );
+
+-- Create the Employee table with a Foreign Key reference to Department.
+
+    CREATE TABLE Employee (
+        Emp_id NUMBER(5) PRIMARY KEY,
+        Emp_Name VARCHAR2(25) NOT NULL,
+        DOJ DATE,
+        DOB DATE,
+        Salary NUMBER(15, 2) DEFAULT 0.0,
+        Dept_id NUMBER(3),
+        FOREIGN KEY (Dept_id) REFERENCES Department(Dept_id)
+    );
+
+-- Insert data into the Department table
+    INSERT INTO Department (Dept_id,Dept_name,Dept_location) VALUES (20, 'Production', 'Delhi');
+    INSERT INTO Department (Dept_id,Dept_name,Dept_location) VALUES (10, 'Sales', 'Mumbai');
+    INSERT INTO Department (Dept_id,Dept_name,Dept_location) VALUES (30, 'HR', 'Rajkot');
+    INSERT INTO Department (Dept_id,Dept_name,Dept_location) VALUES (40, 'IT', 'Bangalore');
+
+-- Insert at least 10 records into the Employee table
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (101, 'ANIL KUMAR', '15-JUN-2007', '20-APR-1985', 62000, 10);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (102, 'SUNITA', '22-AUG-2010', '14-MAY-1990', 55000, 20);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (103, 'RAJ', '10-SEP-2007', '30-JUN-1988', 48000, 10);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (104, 'BHAVESH MEHTA', '18-NOV-2015', '11-DEC-1992', 70000, 20);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (105, 'AMIT PATEL', '05-FEB-2020', '01-JAN-1995', 9000, 30);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (106, 'VIKAS', '25-MAR-2018', '28-FEB-1994', 32000, 40);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (107, 'PRIYA SHARMA', '12-JUL-2022', '19-OCT-1998', 8500, 20);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (108, 'NEHA GUPTA', '01-MAY-2005', '03-MAR-1982', 95000, 10);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (109, 'DEEPAK', '19-JAN-2019', '22-JUL-1996', 6500, 30);
+    INSERT INTO Employee (Emp_id,Emp_Name,DOJ,DOB,Salary,Dept_id) VALUES (110, 'BALAJI', '30-DEC-2021', '16-SEP-1997', 45000, 40);
+
+
+1. Display only those records which are work in sales department.
+
+    SELECT e.* FROM Employee e , Department d WHERE e.Dept_id = d.Dept_id AND d.Dept_name = 'Sales';
+
+2. Update salary of employee with 500 Rs/- where dept_id is 20.
+
+    UPDATE Employee SET Salary = Salary + 500 WHERE Dept_id = 20;
+
+3. Display only those employee details whose joining year is 2007.
+
+    SELECT * FROM Employee WHERE EXTRACT(YEAR FROM DOJ) = 2007;
+
+4. Create view for manager which provides details of both tables.
+
+    CREATE OR REPLACE VIEW manager_view AS SELECT e.Emp_id, e.Emp_Name, e.DOJ, e.DOB, e.Salary, d.Dept_name, d.Dept_location FROM Employee e , Department d WHERE e.Dept_id = d.Dept_id;
+
+5. Display sum of salary given to the production department.
+
+    SELECT SUM(e.Salary) AS Total FROM Employee e, Department d WHERE e.Dept_id = d.Dept_id AND d.Dept_name = 'Production';
+
+6. Display only those records where dept_location is Rajkot.
+
+    SELECT e.* FROM Employee e, Department d WHERE e.Dept_id = d.Dept_id AND d.Dept_location = 'Rajkot';
+
+7. Display minimum and maximum salary given to the employee.
+
+    SELECT MIN(Salary) AS Minimum_Salary, MAX(Salary) AS Maximum_Salary FROM Employee;
+
+8. Display name and experience of the employees.
+
+    SELECT Emp_Name, ROUND(MONTHS_BETWEEN(SYSDATE, DOJ) / 12, 2) AS Experience_In_Years FROM Employee;
+
+9. Display the number of days between system date and 1st January 2011.
+
+    SELECT SYSDATE - TO_DATE('01-JAN-2011', 'DD-MON-YYYY') AS Days_Since_Jan2011 FROM DUAL;
+
+10. Display name after converting the first letter of each name to upper case and the rest to lower case.
+
+    SELECT INITCAP(Emp_Name) AS Formatted_Name FROM Employee;
+
+11. Display names and Salary of employee whose name begin with 'A' or 'B'.
+
+    SELECT Emp_Name, Salary FROM Employee WHERE Emp_Name LIKE 'A%' OR Emp_Name LIKE 'B%';
+
+12. Display name of employee and age as on today.
+
+    SELECT Emp_Name,FLOOR(MONTHS_BETWEEN(SYSDATE, DOB) / 12) AS Age FROM Employee;
+
+13. Display the information of employee whose name is greater the 5 character.
+
+    SELECT * FROM Employee WHERE LENGTH(Emp_Name) > 5;
+
+14. Delete the information of whose salary between 5000 to 10000.
+
+    DELETE FROM Employee WHERE Salary BETWEEN 5000 AND 10000;

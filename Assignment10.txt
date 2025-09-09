@@ -1,16 +1,83 @@
-CREATE TABLE sales(
-orderID number(3),
-orderDate date,
-orderPrice number(8,2),
-orderQuantity number(3),
-customerName varchar2(15)
-);
+// Create the following table
 
-insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (1,'22-dec-2005',160,2,'Smith');
-insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (2,'10-oct-2005',190,2,'Johnson');
-insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (3,'13-jul-2005',500,5,'Baldwin');
-insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (4,'15-jul-2005',420,2,'Smith');
-insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (5,'22-dec-2005',1000,4,'Wood');
-insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (6,'02-oct-2005',820,4,'Smith');
-insert into sales (orderID,orderDate,orderPrice,orderQuantity,customerName) values (7,'03-nov-2005',2000,2,'Baldwin');
+    CREATE TABLE sales(
+        orderID NUMBER(3),
+        orderDate DATE,
+        orderPrice NUMBER(8,2),
+        orderQuantity NUMBER(3),
+        customerName VARCHAR2(15)
+    );
 
+// Insert following records
+
+    INSERT INTO sales (orderID,orderDate,orderPrice,orderQuantity,customerName) VALUES (1,'22-dec-2005',160,2,'Smith');
+    INSERT INTO sales (orderID,orderDate,orderPrice,orderQuantity,customerName) VALUES (2,'10-oct-2005',190,2,'Johnson');
+    INSERT INTO sales (orderID,orderDate,orderPrice,orderQuantity,customerName) VALUES (3,'13-jul-2005',500,5,'Baldwin');
+    INSERT INTO sales (orderID,orderDate,orderPrice,orderQuantity,customerName) VALUES (4,'15-jul-2005',420,2,'Smith');
+    INSERT INTO sales (orderID,orderDate,orderPrice,orderQuantity,customerName) VALUES (5,'22-dec-2005',1000,4,'Wood');
+    INSERT INTO sales (orderID,orderDate,orderPrice,orderQuantity,customerName) VALUES (6,'02-oct-2005',820,4,'Smith');
+    INSERT INTO sales (orderID,orderDate,orderPrice,orderQuantity,customerName) VALUES (7,'03-nov-2005',2000,2,'Baldwin');
+
+1. Count how many orders have made a customer with CustomerName of Smith.
+
+    SELECT customerName,COUNT(customerName) AS total FROM sales GROUP BY customerName HAVING customerName = 'Smith';
+
+2. Find number of unique customers that have ordered from the store.
+
+    SELECT COUNT(DISTINCT(customerName)) AS total_customer FROM sales;
+
+3. Find out total no. of items ordered by all the customers.
+
+    SELECT SUM(orderQuantity) AS Total_Order FROM sales;
+
+4. Find out average number of items per order.
+
+    SELECT AVG(orderQuantity) AS Average_Order FROM sales;
+                        OR
+    SELECT customerName,AVG(orderQuantity) AS Average_Order FROM sales GROUP BY customerName;
+
+5. Find out the average Order Quantity for all orders with OrderPrice greater than 200
+
+    SELECT AVG(orderQuantity) AS Total_Average_Order FROM sales WHERE orderPrice > 200;
+
+6. Find out what was the minimum price paid for any of the orders.
+
+    SELECT MIN(orderPrice) AS Minimum FROM sales;
+                 OR
+    SELECT customerName,MIN(orderPrice) AS Minimum FROM sales GROUP BY customerName;
+
+7. Find out the highest OrderPrice from the given sales table
+
+    SELECT MAX(orderPrice) AS MAximum FROM sales;
+
+8. List out unique customers' name only from the table.
+
+    SELECT DISTINCT(customerName) AS CUTOMER_NAME FROM sales;
+
+9. List out name of the customers who have given order in the month of DECEMBER
+
+    SELECT customerName FROM sales WHERE orderDate like '%DEC%';
+
+10. Find out the total amount of money spent for each of the customers.
+
+    SELECT customerName,SUM(orderPrice*orderQuantity) AS TOtal_Price FROM sales GROUP BY customerName;
+
+11. Select all unique customers, who have spent more than 1200 in the store.
+
+    SELECT customerName,SUM(orderPrice*orderQuantity) AS TOtal_Price FROM sales GROUP BY customerName HAVING SUM(orderPrice*orderQuantity)>1200;
+
+12. Select all customers that have ordered more than 5 items in total from all their orders.
+
+    SELECT customerName,SUM(orderQuantity) AS TOtal_Price FROM sales GROUP BY customerName HAVING SUM(orderQuantity)>5 ;
+
+13. Select all customers who have spent more than 1000, after 10/01/2005.
+
+    SELECT customerName, SUM(orderPrice * orderQuantity) AS total_spent FROM sales WHERE orderDate > TO_DATE('2005-01-10','YYYY-MM-DD') GROUP BY customerName HAVING SUM(orderPrice * orderQuantity) > 1000;
+
+14. Select orders in increasing order of order price.
+
+    SELECT customerName,SUM(orderPrice) AS TOtal_Price FROM sales GROUP BY customerName ORDER BY SUM(orderPrice);
+
+15. Select orders in decreasing order of order price.
+
+    SELECT customerName,SUM(orderPrice) AS TOtal_Price FROM sales GROUP BY customerName ORDER BY SUM(orderPrice) DESC;

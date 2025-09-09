@@ -1,0 +1,51 @@
+// Create the following table.
+
+    CREATE TABLE client_master(
+        clientno NUMBER(3) PRIMARY KEY,
+        name VARCHAR2(20),
+        address VARCHAR2(20),
+        connection_type VARCHAR2(20) NOT NULL,
+        area VARCHAR2(20) NOT NULL,
+        meter_on_rent char(2) NOT NULL,
+        CHECK (name = UPPER(name)),
+        CHECK (connection_type IN ('Domestic','Business','Temporary')),
+        CHECK (area IN ('Rural','Urban')),
+        CHECK (meter_on_rent IN ('Y','N'))
+    );
+
+// Insert the 10 records.
+
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (1,'ANIL','Kaniyad','Domestic','Urban','Y');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (2,'KALPESH','Hamapar','Business','Rural','N');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (3,'VIJAY','Botad','Temporary','Urban','Y');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (4,'DHRUV','Botad','Domestic','Rural','N');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (5,'YASH','Vinchhiya','Business','Urban','Y');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (6,'PARTH','Botad','Temporary','Rural','N');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (7,'YASH','Taradhara','Domestic','Urban','Y');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (8,'JENIL','Botad','Business','Rural','N');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (9,'UTSAV','Botad','Temporary','Urban','Y');
+    INSERT INTO client_master (clientno,name,address,connection_type,area,meter_on_rent) VALUES (10,'DARSHAN','BOTAD','Domestic','Rural','N');
+
+UPDATE client_master SET meter_on_rent = 'Y' WHERE clientno = 8;
+
+1. Add CONTACT_NO in the table with Not Null constraints.
+
+    ALTER TABLE client_master ADD contact_no NUMBER (10);
+    UPDATE client_master SET contact_no = '9999999999';
+    ALTER TABLE client_master MODIFY contact_no NUMBER (10) NOT NULL;
+
+2. Create Synonyms for above table.
+
+    CREATE PUBLIC SYNONYM Anil FOR client_master;
+
+3. Create unique index on the CLINETΤΝΟ.
+
+    CREATE INDEX Demo ON client_master(clientno);
+
+4. List names of the Clients with address who are living in 'Rural' area and having their own meter and having temporary connection.
+
+    SELECT name , address FROM client_master WHERE area = 'Rural' AND meter_on_rent = 'N' AND connection_type = 'Temporary';
+
+5. Count the number of Clients who are living in Urban area and having business connection and not their own meter.
+
+    SELECT COUNT(clientno) AS Total FROM client_master WHERE area = 'Rural' AND meter_on_rent = 'Y' AND connection_type = 'Business';

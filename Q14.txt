@@ -1,0 +1,79 @@
+// Create the following tables.
+
+-- Create the SALESMEN table
+
+    CREATE TABLE SALESMEN (
+        SID NUMBER(5) PRIMARY KEY,
+        SNAME VARCHAR2(50) NOT NULL,
+        SADD VARCHAR2(50),
+        SPHONE NUMBER(10)
+    );
+
+-- Create the ITEM table
+
+    CREATE TABLE ITEM (
+        ITEMNO NUMBER(5) PRIMARY KEY,
+        ITEMNAME VARCHAR2(50) NOT NULL,
+        PRICE NUMBER(10, 2) CHECK (PRICE > 0)
+    );
+
+-- Create the SMAN_ITEM (Sales Transaction) table
+
+-- SID and ITEMNO are foreign keys referencing the parent tables
+
+    CREATE TABLE SMAN_ITEM (
+        SID NUMBER(5),
+        ITEMNO NUMBER(5),
+        QTY NUMBER(5) CHECK (QTY > 0),
+        FOREIGN KEY (SID) REFERENCES SALESMEN(SID),
+        FOREIGN KEY (ITEMNO) REFERENCES ITEM(ITEMNO)
+    );
+
+-- Insert data into SALESMEN
+
+    INSERT INTO SALESMEN (SID,SNAME,SADD,SPHONE) VALUES (101, 'John Doe', '123 Oxford St', 6536968545);
+    INSERT INTO SALESMEN (SID,SNAME,SADD,SPHONE) VALUES (102, 'Jane Smith', '456 Baker St', 8536968545);
+    INSERT INTO SALESMEN (SID,SNAME,SADD,SPHONE) VALUES (103, 'Peter Jones', '789 Regent St', 9536968545);
+    INSERT INTO SALESMEN (SID,SNAME,SADD,SPHONE) VALUES (104, 'Sue Martin', '321 Park Lane', 7536968545);
+
+-- Insert data into ITEM
+
+    INSERT INTO ITEM (ITEMNO,ITEMNAME,PRICE) VALUES (1, 'Laptop', 1200.00);
+    INSERT INTO ITEM (ITEMNO,ITEMNAME,PRICE) VALUES (2, 'Mouse', 25.00);
+    INSERT INTO ITEM (ITEMNO,ITEMNAME,PRICE) VALUES (3, 'Keyboard', 75.00);
+    INSERT INTO ITEM (ITEMNO,ITEMNAME,PRICE) VALUES (4, 'Monitor', 300.00);
+    INSERT INTO ITEM (ITEMNO,ITEMNAME,PRICE) VALUES (5, 'Webcam', 50.00);
+    INSERT INTO ITEM (ITEMNO,ITEMNAME,PRICE) VALUES (6, 'Desk Chair', 150.00);
+
+-- Insert sales transaction data into SMAN_ITEM
+
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (101, 1, 10);
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (101, 2, 1500); 
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (102, 3, 20);
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (103, 1, 5);
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (102, 4, 15);
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (101, 3, 30);
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (103, 2, 50);
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (102, 2, 10);
+    INSERT INTO SMAN_ITEM (SID,ITEMNO,QTY) VALUES (103, 5, 100);
+
+
+1. Display details of all those items that have never been sold.
+
+    SELECT i.* FROM ITEM i , SMAN_ITEM si WHERE i.ITEMNO(+) = si.ITEMNO AND si.ITEMNO IS NULL;
+
+2. Delete all those items that have been sold only once.
+
+    DELETE FROM ITEM WHERE ITEMNO IN (SELECT ITEMNO FROM SMAN_ITEM GROUP BY ITEMNO HAVING COUNT(ITEMNO) = 1);
+
+3. Display all those salesmen who have sale out more than 1000 qty of the same item.
+
+    SELECT * FROM SALESMEN WHERE SID IN (SELECT SID FROM SMAN_ITEM WHERE QTY > 1000);
+
+4. List all salesmen with their total amount of selling.
+
+    SELECT s.SNAME,NVL(SUM(i.PRICE * si.QTY), 0) AS Total_Sales_Amount FROM SALESMEN s, SMAN_ITEM si, ITEM i WHERE s.SID = si.SID(+) AND si.ITEMNO = i.ITEMNO(+) GROUP BY s.SNAME ORDER BY s.SNAME;
+
+5. Display item wise selling details.
+
+    SELECT i.ITEMNAME,SUM(si.QTY) AS Total_Quantity_Sold,SUM(si.QTY * i.PRICE) AS Total_Revenue FROM ITEM i, SMAN_ITEM si WHERE i.ITEMNO = si.ITEMNO GROUP BY i.ITEMNAME, i.PRICE ORDER BY i.ITEMNAME;
