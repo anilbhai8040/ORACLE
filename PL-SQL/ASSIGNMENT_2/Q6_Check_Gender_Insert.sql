@@ -54,3 +54,7 @@ END;
 --     std NUMBER,
 --     birth_date DATE
 -- );
+
+-- SELECT * FROM student;
+-- SELECT * FROM male;
+-- SELECT * FROM female;

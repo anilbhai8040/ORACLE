@@ -1,25 +1,18 @@
 -- SET SERVEROUTPUT ON;
 -- @ E:\BARAIYA_ANIL\ASSIGNMENT_1\Q1_Marksheet.sql
 DECLARE
-	Sub1 NUMBER(3);
-	Sub2 NUMBER(3);
-	Sub3 NUMBER(3);
-	Sub4 NUMBER(3);
-	Sub5 NUMBER(3);
-	Seat_no NUMBER(3);
-	Name VARCHAR2(25);
+	Sub1 NUMBER(3) := &Mark_Of_Sub1_;
+	Sub2 NUMBER(3) := &Mark_Of_Sub2_;
+	Sub3 NUMBER(3) := &Mark_Of_Sub3_;
+	Sub4 NUMBER(3) := &Mark_Of_Sub4_;
+	Sub5 NUMBER(3) := &Mark_Of_Sub5_;
+	Seat_no NUMBER(3) := &Seat_no;
+	Name VARCHAR2(25) := '&Name_';
 	Total NUMBER(3);
 	Percentage NUMBER(5,2);
 	Result1 VARCHAR2(20);
     Class VARCHAR2(20);
 BEGIN
-	Seat_no := &Seat_no;
-	Name := '&Name_';
-	Sub1 := &Mark_Of_Sub1_;
-	Sub2 := &Mark_Of_Sub2_;
-	Sub3 := &Mark_Of_Sub3_;
-	Sub4 := &Mark_Of_Sub4_;
-	Sub5 := &Mark_Of_Sub5_;
 	Total := Sub1 + Sub2 + Sub3 + Sub4 + Sub5;
 	Percentage := (Total*100)/500;
 	
