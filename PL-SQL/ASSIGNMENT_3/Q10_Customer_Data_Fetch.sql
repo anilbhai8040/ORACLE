@@ -1,5 +1,4 @@
-CREATE OR REPLACE FUNCTION get_bill_amount(custId IN NUMBER)
-RETURN NUMBER
+CREATE OR REPLACE FUNCTION get_bill_amount(custId IN NUMBER) RETURN NUMBER
 IS
     amount CUSTOMER.bill_amount%TYPE;
 BEGIN
@@ -26,11 +25,11 @@ END;
 --     bill_amount NUMBER(10,2)
 -- );
 
--- INSERT INTO CUSTOMER VALUES (101, 'Anil', 'Rajkot', 2500);
--- INSERT INTO CUSTOMER VALUES (102, 'Kalpesh', 'Ahmedabad', 4200);
--- INSERT INTO CUSTOMER VALUES (103, 'Avani', 'Surat', 3150);
--- INSERT INTO CUSTOMER VALUES (104, 'Dhruv', 'Baroda', 2800);
--- INSERT INTO CUSTOMER VALUES (105, 'Janvi', 'Mumbai', 5000);
+-- INSERT INTO CUSTOMER (cust_id,cust_name,city,bill_amount) VALUES (101, 'Anil', 'Rajkot', 2500);
+-- INSERT INTO CUSTOMER (cust_id,cust_name,city,bill_amount) VALUES (102, 'Kalpesh', 'Ahmedabad', 4200);
+-- INSERT INTO CUSTOMER (cust_id,cust_name,city,bill_amount) VALUES (103, 'Avani', 'Surat', 3150);
+-- INSERT INTO CUSTOMER (cust_id,cust_name,city,bill_amount) VALUES (104, 'Dhruv', 'Baroda', 2800);
+-- INSERT INTO CUSTOMER (cust_id,cust_name,city,bill_amount) VALUES (105, 'Janvi', 'Mumbai', 5000);
 
 -- COMMIT;
 

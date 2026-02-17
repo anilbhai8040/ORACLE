@@ -1,5 +1,4 @@
-CREATE OR REPLACE FUNCTION raise_salary(empId IN NUMBER)
-RETURN VARCHAR2
+CREATE OR REPLACE FUNCTION raise_salary(empId IN NUMBER) RETURN VARCHAR2
 IS
     v_salary EMPLOYEE.salary%TYPE;
     v_new_salary EMPLOYEE.salary%TYPE;
