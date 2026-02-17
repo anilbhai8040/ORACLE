@@ -1,31 +1,39 @@
-CREATE OR REPLACE PROCEDURE change_manager(deptId IN NUMBER)
+CREATE OR REPLACE FUNCTION raise_salary(empId IN NUMBER)
+RETURN VARCHAR2
 IS
-    empId EMPLOYEE.emp_id%TYPE;
+    v_salary EMPLOYEE.salary%TYPE;
+    v_new_salary EMPLOYEE.salary%TYPE;
 BEGIN
-    -- Find employee with highest salary in the given department
-    -- SELECT emp_id INTO empId FROM EMPLOYEE WHERE dept_id = deptId ORDER BY salary DESC FETCH FIRST 1 ROW ONLY;
+    -- Fetch current salary
+    SELECT salary INTO v_salary FROM EMPLOYEE WHERE emp_id = empId;
 
-    -- Give Error Too Many Rows
-    SELECT emp_id INTO empId FROM EMPLOYEE WHERE dept_id = deptId AND salary = (SELECT MAX(salary) FROM EMPLOYEE WHERE dept_id = deptId);
-    
-    -- Update manager_id in DEPARTMENT table
-    UPDATE DEPARTMENT SET manager_id = empId WHERE dept_id = deptId;
+    -- increment
+    IF v_salary < 10000 THEN
+        v_new_salary := v_salary + (v_salary * 0.30);
+
+    ELSIF v_salary >= 10000 AND v_salary < 20000 THEN
+        v_new_salary := v_salary + (v_salary * 0.20);
+
+    ELSE
+        v_new_salary := v_salary + (v_salary * 0.10);
+    END IF;
+
+    -- Update salary in table
+    UPDATE EMPLOYEE SET salary = v_new_salary WHERE emp_id = empId;
 
     COMMIT;
 
-    DBMS_OUTPUT.PUT_LINE('Manager Updated for Department ' || deptId);
+    RETURN 'Salary Updated Successfully. New Salary = ' || v_new_salary;
 
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No Employee Found in Department ' || deptId);
-    
-    --  WHEN TOO_MANY_ROWS THEN
-    --     DBMS_OUTPUT.PUT_LINE('Multiple Highest Salaries Found — One Employee Selected');
+        RETURN 'Employee ID Not Found';
 
     WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Some other Error...');
+        RETURN 'Error Occurred';
 END;
 /
+
 
 -- CREATE TABLE DEPARTMENT
 -- (
@@ -59,6 +67,5 @@ END;
 -- INSERT INTO EMPLOYEE (emp_id, emp_name, job_title, salary, dept_id) VALUES (402, 'Jay', 'CLERK', 42000, 40);
 
 -- SET SERVEROUTPUT ON;
--- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q3_Update_Manager.sql
-
--- EXEC change_manager(&dept_id);
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q9_Raise_Salary.sql
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q9_Execute.sql

@@ -1,29 +1,19 @@
-CREATE OR REPLACE PROCEDURE change_manager(deptId IN NUMBER)
+CREATE OR REPLACE FUNCTION get_manager_name(deptId IN NUMBER) RETURN VARCHAR2
 IS
-    empId EMPLOYEE.emp_id%TYPE;
+    managerId DEPARTMENT.manager_id%TYPE;
+    managerName EMPLOYEE.emp_name%TYPE;
 BEGIN
-    -- Find employee with highest salary in the given department
-    -- SELECT emp_id INTO empId FROM EMPLOYEE WHERE dept_id = deptId ORDER BY salary DESC FETCH FIRST 1 ROW ONLY;
+    SELECT manager_id INTO managerId FROM DEPARTMENT WHERE dept_id = deptId;
 
-    -- Give Error Too Many Rows
-    SELECT emp_id INTO empId FROM EMPLOYEE WHERE dept_id = deptId AND salary = (SELECT MAX(salary) FROM EMPLOYEE WHERE dept_id = deptId);
-    
-    -- Update manager_id in DEPARTMENT table
-    UPDATE DEPARTMENT SET manager_id = empId WHERE dept_id = deptId;
+    SELECT emp_name INTO managerName FROM EMPLOYEE WHERE emp_id = managerId;
 
-    COMMIT;
-
-    DBMS_OUTPUT.PUT_LINE('Manager Updated for Department ' || deptId);
+    RETURN managerName;
 
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No Employee Found in Department ' || deptId);
-    
-    --  WHEN TOO_MANY_ROWS THEN
-    --     DBMS_OUTPUT.PUT_LINE('Multiple Highest Salaries Found — One Employee Selected');
-
+        RETURN 'Manager Not Found';
     WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Some other Error...');
+        RETURN 'Error Occurred';
 END;
 /
 
@@ -59,6 +49,7 @@ END;
 -- INSERT INTO EMPLOYEE (emp_id, emp_name, job_title, salary, dept_id) VALUES (402, 'Jay', 'CLERK', 42000, 40);
 
 -- SET SERVEROUTPUT ON;
--- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q3_Update_Manager.sql
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q6_Return_Manager_Name.sql
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q6_Execute.sql
 
--- EXEC change_manager(&dept_id);
+-- SELECT get_manager_name(10) FROM dual;

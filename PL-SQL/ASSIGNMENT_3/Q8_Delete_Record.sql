@@ -1,23 +1,26 @@
-CREATE OR REPLACE PROCEDURE update_student
+CREATE OR REPLACE FUNCTION delete_student(rollNo IN NUMBER)
+RETURN VARCHAR2
 IS
-    v_count NUMBER;
+    counter1 NUMBER;
 BEGIN
-    UPDATE STUD SET standard = standard + 1 WHERE mark1 >= 35 AND mark2 >= 35 AND mark3 >= 35;
+    DELETE FROM STUD WHERE rollno = rollNo;
 
-    v_count := SQL%ROWCOUNT;
+    counter1 := SQL%ROWCOUNT;
 
     COMMIT;
 
-    DBMS_OUTPUT.PUT_LINE(v_count ||' Students Passed...');
+    IF counter1 > 0 THEN
+        RETURN 'Student with Roll No ' || rollNo || ' Deleted Successfully';
+    ELSE
+        RETURN 'Student with Roll No ' || rollNo || ' Does Not Exist';
+    END IF;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN 'Error Occurred While Deleting';
 END;
 /
 
--- SET SERVEROUTPUT ON;
--- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q2_Update_Record.sql
-
--- Using SQL COMMAND PROMPT
-
--- EXEC update_student;
 
 -- CREATE TABLE STUD
 -- (
@@ -35,4 +38,18 @@ END;
 -- INSERT INTO STUD (rollno, name, mark1, mark2, mark3, standard) VALUES (104, 'Sita', 40, 55, 60, 1);
 -- INSERT INTO STUD (rollno, name, mark1, mark2, mark3, standard) VALUES (105, 'Kiran', 30, 25, 35, 1);
 -- COMMIT;
+
+-- SET SERVEROUTPUT ON;
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q8_Delete_Record.sql
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q8_Execute.sql
+
+
+
+
+
+
+
+
+
+
 

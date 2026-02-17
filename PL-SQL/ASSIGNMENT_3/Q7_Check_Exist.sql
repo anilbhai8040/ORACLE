@@ -1,23 +1,24 @@
-CREATE OR REPLACE PROCEDURE update_student
+CREATE OR REPLACE FUNCTION check_rollno (p_rollno IN NUMBER) RETURN VARCHAR2
 IS
     v_count NUMBER;
 BEGIN
-    UPDATE STUD SET standard = standard + 1 WHERE mark1 >= 35 AND mark2 >= 35 AND mark3 >= 35;
+    SELECT COUNT(*) INTO v_count FROM STUD WHERE rollno = p_rollno;
 
-    v_count := SQL%ROWCOUNT;
+    IF v_count > 0 THEN
+        RETURN 'Roll Number Exists';
+    ELSE
+        RETURN 'Roll Number Does Not Exist';
+    END IF;
 
-    COMMIT;
-
-    DBMS_OUTPUT.PUT_LINE(v_count ||' Students Passed...');
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN 'Error Occurred';
 END;
 /
 
 -- SET SERVEROUTPUT ON;
--- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q2_Update_Record.sql
-
--- Using SQL COMMAND PROMPT
-
--- EXEC update_student;
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q7_Check_Exist.sql
+-- @ E:\BARAIYA_ANIL\ASSIGNMENT_3\Q7_Execute.sql
 
 -- CREATE TABLE STUD
 -- (
@@ -29,10 +30,10 @@ END;
 --     standard NUMBER(2) DEFAULT 1
 -- );
 
+
 -- INSERT INTO STUD (rollno, name, mark1, mark2, mark3, standard) VALUES (101, 'Anil', 75, 80, 70, 1);
 -- INSERT INTO STUD (rollno, name, mark1, mark2, mark3, standard) VALUES (102, 'Ravi', 60, 65, 70, 1);
 -- INSERT INTO STUD (rollno, name, mark1, mark2, mark3, standard) VALUES (103, 'Meena', 85, 90, 95, 1);
 -- INSERT INTO STUD (rollno, name, mark1, mark2, mark3, standard) VALUES (104, 'Sita', 40, 55, 60, 1);
 -- INSERT INTO STUD (rollno, name, mark1, mark2, mark3, standard) VALUES (105, 'Kiran', 30, 25, 35, 1);
 -- COMMIT;
-
